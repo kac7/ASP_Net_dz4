@@ -1,0 +1,38 @@
+﻿@using ASP_MVC_dz4.Models
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Create</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css">
+    <link href="~/Style.css" rel="stylesheet" />
+</head>
+<body>
+    <nav class="nav nav-pills nav-fill">
+        <a href="/Book/Index" class="nav-item nav-link ">Show Book</a>
+        <a href="/Author/Index" class="nav-item nav-link">Show Author</a>
+        <a href="/Publisher/Index" class="nav-item nav-link active">Show Publisher</a>
+    </nav>
+    <div class="main main-form">
+        <h2>Create Publisher</h2>
+        @using (Html.BeginForm())
+        {
+            <table class="table">
+                <tr>
+                    <td><label for="Name">Name</label></td>
+                    <td><input type="text" required name="Name" id="Name" class="form-control" placeholder="Name" value="" /></td>
+                </tr>
+            </table>
+            <div class="footer">
+                <input type="submit" name="submit" value="Create" class="btn btn-success" />
+                @Html.ActionLink("Cancel", "Index", new { }, new { @class = "btn btn-danger" })
+            </div>
+        }
+    </div>
+</body>
+</html>

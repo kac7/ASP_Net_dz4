@@ -1,0 +1,47 @@
+﻿@using ASP_MVC_dz4.Models
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Edit</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css">
+    <link href="~/Style.css" rel="stylesheet" />
+</head>
+<body>
+    <nav class="nav nav-pills nav-fill">
+        <a href="/Book/Index" class="nav-item nav-link ">Show Book</a>
+        <a href="/Author/Index" class="nav-item nav-link active">Show Author</a>
+        <a href="/Publisher/Index" class="nav-item nav-link">Show Publisher</a>
+    </nav>
+    <div class="main main-form">
+        <h2>Edit @ViewBag.newauthor.Name</h2>
+        @using (Html.BeginForm())
+        {
+            <div class="error-name">@Html.Raw(ViewBag.HtmlStr)</div>
+            <table class="table">
+                <tr>
+                    <td><label for="Name">Name</label></td>
+                    <td><input type="text" required name="Name" id="Name" class="form-control" value="@ViewBag.newauthor.Name" /></td>
+                </tr>
+                <tr>
+                    <td><label for="DateOfBirth">Date Of Birth</label></td>
+                    <td><input type="date" required name="DateOfBirth" id="DateOfBirth" class="form-control" value="@ViewBag.newauthor.DateOfBirth.ToString("yyyy-MM-dd")" /></td>
+                </tr>
+                <tr>
+                    <td><label for="DateOfDeath">Date Of Death</label></td>
+                    <td><input type="date" name="DateOfDeath" id="DateOfDeath" class="form-control" value="@ViewBag.newauthor.DateOfDeath.ToString("yyyy-MM-dd")" /></td>
+                </tr>
+            </table>
+            <div class="footer">
+                <input type="submit" name="submit" value="Edit" class="btn btn-success" />
+                @Html.ActionLink("Cancel", "Index", new { }, new { @class = "btn btn-danger" })
+            </div>
+        }
+    </div>
+</body>
+</html>

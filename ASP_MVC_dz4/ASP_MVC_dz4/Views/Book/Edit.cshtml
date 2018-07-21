@@ -1,0 +1,111 @@
+﻿@using ASP_MVC_dz4.Models
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Edit</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css">
+    <link href="~/Style.css" rel="stylesheet" />
+</head>
+<body>
+    <nav class="nav nav-pills nav-fill">
+        <a href="/Book/Index" class="nav-item nav-link active">Show Book</a>
+        <a href="/Author/Index" class="nav-item nav-link">Show Author</a>
+        <a href="/Publisher/Index" class="nav-item nav-link">Show Publisher</a>
+    </nav>
+    <div class="main main-form">
+        <h2>Create Book</h2>
+        @using (Html.BeginForm())
+        {
+            <table class="table">
+                <tr>
+                    <td><label for="Name">Name</label></td>
+                    <td><input type="text" required name="Name" id="Name" class="form-control" value="@ViewBag.newbook.Name" /></td>
+                </tr>
+                <tr>
+                    <td><label for="PageCount">Page Count</label></td>
+                    <td><input type="text" required name="PageCount" id="PageCount" class="form-control" value="@ViewBag.newbook.PageCount" /></td>
+                </tr>
+                <tr>
+                    <td><label for="ISBN">ISBN</label></td>
+                    <td><input type="text" required name="ISBN" id="ISBN" class="form-control" value="@ViewBag.newbook.ISBN" /></td>
+                </tr>
+                <tr>
+                    <td><label for="PublishDate">Publish Date</label></td>
+                    <td><input type="date" required name="PublishDate" id="PublishDate" class="form-control" value="@ViewBag.newbook.PublishDate.ToString("yyyy-MM-dd")" /></td>
+                </tr>
+                <tr>
+                    <td><label for="Publisher">Publisher</label></td>
+                    <td>
+                        @if (PublisherRepository.Instanse._publishers.Count > 0)
+                        {
+                            <select name="Publisher" id="Publisher" required class="form-control">
+                                @foreach (var item in PublisherRepository.Instanse._publishers)
+                                {
+                                    if (item.Name == ViewBag.newbook.Publisher.Name)
+                                    {
+                                        <option selected>@item.Name</option>
+                                        continue;
+                                    }
+                                    <option>@item.Name</option>
+                                }
+                            </select>
+                        }
+                        else
+                        {
+                            <div class="empty-notice">You do not have any publishers! <a href="/Publisher/Create">Create Publisher</a></div>
+                        }
+                    </td>
+                </tr>
+                <tr>
+                    <td><label for="Authors">Authors</label></td>
+                    <td>
+                        @if (AuthorRepository.Instanse._authors.Count > 0)
+                        {
+                        <select name="Authors[]" id="Authors" required size="3" class="form-control" multiple>
+                            @foreach (var item in AuthorRepository.Instanse._authors)
+                            {
+                                bool flag = true;
+                                if (ViewBag.newbook.Authors != null)
+                                {
+                                    foreach (var item2 in ViewBag.newbook.Authors)
+                                    {
+                                        if (item.Id == item2.Id)
+                                        {
+                                            <option selected>@item.Name</option>
+                                            flag = false;
+                                            break;
+                                        }
+                                    }
+                                    if (flag)
+                                    {
+                                        <option>@item.Name</option>
+                                    }
+                                }
+                                else
+                                {
+                                    <option>@item.Name</option>
+                                }
+                            }
+                        </select>
+                        }
+                        else
+                        {
+                            <div class="empty-notice">You do not have any Authors! <a href="/Author/Create">Create Author</a></div>
+                        }
+                    </td>
+                </tr>
+            </table>
+            <div class="footer">
+                <input type="submit" name="submit" value="Edit" class="btn btn-success" />
+                @Html.ActionLink("Cancel", "Index", new { }, new { @class = "btn btn-danger" })
+            </div>
+
+        }
+    </div>
+
+</body>
+</html>

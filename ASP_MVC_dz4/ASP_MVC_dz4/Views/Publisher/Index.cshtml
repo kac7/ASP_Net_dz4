@@ -1,0 +1,35 @@
+﻿@using ASP_MVC_dz4.Models
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css">
+    <link href="~/Style.css" rel="stylesheet" />
+</head>
+<body>
+    <nav class="nav nav-pills nav-fill">
+        <a href="/Book/Index" class="nav-item nav-link ">Show Book</a>
+        <a href="/Author/Index" class="nav-item nav-link">Show Author</a>
+        <a href="/Publisher/Index" class="nav-item nav-link active">Show Publisher</a>
+    </nav>
+    <div class="main">
+        <h2>Publisher</h2>
+        @if (PublisherRepository.Instanse._publishers.Count > 0)
+        {
+            @PublisherTableHelpers.TableIndex(this.Html)
+            <div class="footer">
+                @Html.ActionLink("Add", "Create", new { }, new { @class = "btn btn-success" })
+            </div>
+        }
+        else
+        {
+            <h3 class="empty-table">No records. <a href="/Publisher/Create" class="first-records">Add First Publisher</a></h3>
+        }
+
+    </div>
+</body>
+</html>
